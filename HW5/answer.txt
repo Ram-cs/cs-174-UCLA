@@ -1,0 +1,10 @@
+Ram Yadav
+Paul Eggert
+
+12.18
+A. This trajectory is unsafe. It is unsafe at the point of L_1 as we follow the path.
+B. This trajectory is safe
+C. This trajectory is unsafe. It is unsafe at the point L_2 as L_2 is unsafe region.
+
+12.24
+The pointer parameter is void* usrbuff and rio_t*rp. In a special, the functions can be implicitly reentrant when the user make sure that the void pointers that are passed in are not accessing the same storage of the memory. It is because all the functions in RIO/O package pass in a pointer to their functions. However, it is possible that the user can read and write in the same buffer because of this package and may result pointing to the same location and caused violation of reentrancy. So the choice is up to the user, and thereby, functions can be implicitly reentrant, but their user may not be. 

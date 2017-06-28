@@ -1,0 +1,47 @@
+Ram Yadav
+UID: 604841556
+
+- ran the command to launch the current version of gdb as recommended in the lab
+gdb ~eggert/bin64/bin/emacs-25.2
+
+- (gdb) break Ftimes
+it set the break point at the function Ftimes that use to multiply number, that helps to trance every instruction in that function, 
+
+-(gdb) ‘info b’ to check the break point 
+Num     Type           Disp Enb Address            What
+1       breakpoint     keep y   0x0000000000547ad0 in Ftimes at data.c:2815
+
+-(gdb) set disassemble-next-line on
+It helps to display the next source line followed by the disassembly of it after GDB is 
+stopped at a breakpoint. 
+
+- (gdb) set step-mode on
+It causes the step command to stop at the first instruction of a function which contains
+no debug line information rather than stepping over it.
+
+- (gdb) stepi (or si)
+used to go inside the function
+
+- (gdb) info registers
+used to get the all registers information, e.g to see the value of the registers
+
+- (gdb) info registers $___
+used to get the value for the specific registers
+
+- (gdb) disas
+It produce the disassembly output of the entire function
+
+
+
+As i was tracing, general pattern i used was
+1.) gdb ~eggert/bin64/bin/emacs-24.5
+2.) break Ftimes
+3.) set disassemble-next-line on
+4.)set step-mode on
+5.) disas
+6.) si
+7.) info registers
+8.) info registers $___
+
+
+
