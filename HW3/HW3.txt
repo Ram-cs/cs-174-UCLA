@@ -1,47 +1,0 @@
-																Homework: 3Ram YadavUID: 604841556Prof: Eggert
-
-Question (3.67)Eval extends from %rbp to %rsp                       Highest Address
-	104|—————————————| <—— %rbp
-	96 |—————————————|
-	88 |—————————————|
-	80 |————————————-|
-	72 |————————————-|
-	64 |————————————-|
-	56 |—————————————| 
-	48 |—————————————|         
-	40 |—————————————|
-	32 |—————————————|
-	   |     z       |
-	24 |————————————-|
-	   |     &z      |
-	16 |————————————-|
-	   |      y      |
-	8  |—————————————|
-	   |      x      |
-	0  |————————————-| <——%rsp
-
-Lowest Address	        TopAs all values are long, its 8 byte. So total = 13 * 8 = 104 byteB.    From the c code, eval pass str A value that are assigned from its arguments x, y, and z to call process. In assembly the instruction save in %rdi  “lead 64(%rsp), %rdi”. So the process when they refer to strA is via offset. To access the memory, using %rsp, the stack pointer. So %rsp is passed into the process by eval.C.      As it can be seen, “call process” return the return address by pushing %rsp (stack pointer) by 8 bytes. Therefor, access ‘y’ from line 5 “moveq 16(%rsp), %rcx” from strA(s.a[1]), ‘x’ from line 6 “8(%rsp), %rcx”, in strA(s.a[0]), and ‘z’ from line 9 “movq %rdx, 16(%rdi)”, in strA (s.p)D.  strB r is 64 bytes above the %rsp. The result is stored in %rcx form s.a[1] and s.a[0], and *s.p is stored in %rdx, and these are then moved to the (%rdi), 8(%rdi) and 16(%rdi) respectively. %rdi is stored in the eval’s stack 64 bytes above from the %rsp	E.                     Bottom 	
-Highest Address
-	104|—————————————| <—— %rbp
-	96 |—————————————|
-	88 |—————————————|
-	   |     z       |
-	80 |————————————-|
-	   |     x       |
-	72 |————————————-|
-	   |    y        |
-	64 |————————————-|
-	56 |—————————————| 
-	48 |—————————————|         
-	40 |—————————————|
-	32 |—————————————|
-	   |     z       |
-	24 |————————————-|
-	   |     &z      |
-	16 |————————————-|
-	   |      y      |
-	8  |—————————————|
-	   |      x      |
-	0  |————————————-| <——%rsp
-
-Lowest Address	        TopF.     when pass structure as an argument takes more space on the stack as it copies all its member. In eval, %rax holds the value at 72(%rsp) after call the process, so the value corresponds r.u[1] in c code.   Which then add to %rax that stored in the strBr frame. Thus, it can be concluded that pointer access the function results one by one. Question (3.70)	1void proc (union ele *up) {up->e2.next->e1.y = *(up->e2.next->e1.p) – up->e2.x;}A.	What are the offsets, (in bytes) of the following fields.0		         8                             16|-------------------------|-----------------------|e1. p =  0el.y  =  8e2.x  = 0e2.next = 8 B.  16 bytesC The compiler generates the following assembly code for proc:void proc (union ele *up) up in %rdi1 proc:2 movq 8(%rdi), %rax - rax = up + 8  up -> e13 movq (%rax), %rdx  rdx  = (up + 8)  &(up -> el)4 movq (%rdx), %rdx  rdx = (%rdx) = && %rax  &(&(up -> e1)5 subq 8(%rax), %rdx  rdx =  8 + &(&(up ->e1)) – up->e16 movq %rdx, (%rdi) "  &up = 8 + &(&(up ->e1)) – up->e17 ret

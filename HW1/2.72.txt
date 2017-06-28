@@ -1,15 +1,0 @@
-
-
-void copy_int(int val, void *buf, int maxbytes) {if (maxbytes-sizeof(val) >= 0)	memcpy(buf, (void*) &val, sizeof(val));
-}
-
-A. Ans:
-	sizeof(val) is a type of size_t. This is an unsigned value. For the unsigned value
-it always >= 0. Being said that the given code always execute because it is always true.
-
-B. Ans:
-	to correct this the if condition should be
-	maxbytes-(int)sizeof(val), or maxbytes >= sizeof(val), so the given code will be
-
-void copy_int(int val, void *buf, int maxbytes) {if (maxbytes-(int)sizeof(val) >= 0)	memcpy(buf, (void*) &val, sizeof(val));
-}
